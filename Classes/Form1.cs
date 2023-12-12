@@ -80,6 +80,31 @@ namespace Task1
             
         }
 
+        private void Clear_prof ()
+        {
+            Prof_name.Text = string.Empty;
+            Prof_phone.Text = string.Empty;
+            Prof_ID.Text=string.Empty;
+            Prof_age.Text = string.Empty;
+            Prof_exp.Text = string.Empty;
+            Dep_ID.Text = string.Empty;
+        }
+
+        private void Clear_Course ()
+        {
+            Course_name.Text = string.Empty;
+            Course_ID.Text = string.Empty;
+            Course_lvl.Text = string.Empty;
+            course_profid.Text = string.Empty;
+        }
+
+        private void Clear_Dep()
+        {
+            Dep_name.Text = string.Empty;
+            depID.Text = string.Empty;
+            Description.Text = string.Empty;
+        }
+
         private void Add_prof1(object sender, EventArgs e)
         {
             // Check if any field is empty
@@ -144,6 +169,7 @@ namespace Task1
             ProfessorRepository professorRepository = new ProfessorRepository(db);
             professorRepository.AddProfessor(newProfessor);
             Prof_Grid.DataSource = db.Professors.ToList();
+            Clear_prof ();
 
         }
 
@@ -165,6 +191,7 @@ namespace Task1
             // All checks passed, proceed to create and add the department
             string DepartmentName = Dep_name.Text;
             string dep_Description = Description.Text;
+            
 
             Department newDepartment = new Department
             {
@@ -176,6 +203,7 @@ namespace Task1
             DepartmentRepository departmentRepository = new DepartmentRepository(db);
             departmentRepository.AddDepartment(newDepartment);
             Dep_grid.DataSource = db.Departments.ToList();
+            Clear_Dep();
 
 
         }
@@ -211,6 +239,7 @@ namespace Task1
                 // Department exists, proceed to delete
                 departmentRepository.DeleteDepartment(departmentId);
                 Dep_grid.DataSource = db.Departments.ToList();
+                Clear_Dep();
             }
             else
             {
@@ -243,7 +272,8 @@ namespace Task1
                 // Professor exists, proceed to delete
                 professorRepository.DeleteProfessor(professorId);
                 Prof_Grid.DataSource = db.Professors.ToList();
-                MessageBox.Show("Professor deleted successfully!");
+                Clear_prof ();
+
             }
             else
             {
@@ -295,6 +325,7 @@ namespace Task1
                 CourseRepository courseRepository = new CourseRepository(db);
                 courseRepository.AddCourse(newCourse);
                 Course_grid.DataSource = db.Courses.ToList();
+                Clear_Course ();
             }
             else
             {
@@ -316,6 +347,7 @@ namespace Task1
                     // Use the CourseRepository to delete the course
                     courseRepository.DeleteCourse(courseIdToDelete);
                     Course_grid.DataSource = db.Courses.ToList();
+                    Clear_Course ();
 
                 }
                 else
@@ -367,6 +399,7 @@ namespace Task1
                 // Use the DepartmentRepository to update the department
                 departmentRepository.UpdateDepartment(updatedDepartment);
                 Dep_grid.DataSource = db.Departments.ToList();
+                Clear_Dep();
             }
             else
             {
@@ -444,6 +477,7 @@ namespace Task1
                 // Use the ProfessorRepository to update the professor
                 professorRepository.UpdateProfessor(existingProfessor);
                 Prof_Grid.DataSource = db.Professors.ToList();
+                Clear_prof ();
             }
             else
             {
@@ -504,6 +538,7 @@ namespace Task1
                 // Use the CourseRepository to update the course
                 courseRepository.UpdateCourse(existingCourse);
                 Course_grid.DataSource = db.Courses.ToList();
+                Clear_Course ();
             }
             else
             {
@@ -544,6 +579,7 @@ namespace Task1
                                        $"Department ID: {professor.DepartmentId}";
 
                 MessageBox.Show(professorInfo, "Professor Information");
+                Clear_prof ();
             }
             else
             {
@@ -580,6 +616,7 @@ namespace Task1
                                         $"Description: {department.Description}";
 
                 MessageBox.Show(departmentInfo, "Department Information");
+                Clear_Dep();
             }
             else
             {
@@ -617,6 +654,7 @@ namespace Task1
                                     $"Professor ID: {course.ProfessorId}";
 
                 MessageBox.Show(courseInfo, "Course Information");
+                Clear_Course ();
             }
             else
             {
